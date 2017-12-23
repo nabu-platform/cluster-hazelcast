@@ -64,4 +64,9 @@ public class HazelcastLock implements ClusterLock {
 	public String toString() {
 		return lock.toString();
 	}
+
+	@Override
+	public void destroy() {
+		lock.destroy();
+	}
 }

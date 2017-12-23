@@ -39,4 +39,9 @@ public class HazelcastCountDownLatch implements ClusterCountDownLatch {
 		return countDownLatch.trySetCount(count);
 	}
 
+	@Override
+	public void destroy() {
+		countDownLatch.destroy();
+	}
+
 }

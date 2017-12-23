@@ -82,4 +82,9 @@ public class HazelcastAtomicLong implements ClusterAtomicLong {
 	public String toString() {
 		return atomicLong.toString();
 	}
+
+	@Override
+	public void destroy() {
+		atomicLong.destroy();
+	}
 }
