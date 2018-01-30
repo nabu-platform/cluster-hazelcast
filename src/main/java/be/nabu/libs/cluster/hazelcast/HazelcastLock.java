@@ -69,4 +69,9 @@ public class HazelcastLock implements ClusterLock {
 	public void destroy() {
 		lock.destroy();
 	}
+
+	@Override
+	public boolean isLockedByCurrentThread() {
+		return lock.isLockedByCurrentThread();
+	}
 }

@@ -4,7 +4,7 @@
 	<groupId>be.nabu.libs.cluster</groupId>
 	<artifactId>cluster-hazelcast</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>${be.nabu.libs.cluster-cluster-hazelcast-version}</version>
 	<name>cluster-hazelcast</name>
 
 	<parent>
@@ -38,7 +38,6 @@
 		<dependency>
 			<groupId>be.nabu.libs.cluster</groupId>
 			<artifactId>cluster-api</artifactId>
-			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.hazelcast</groupId>
