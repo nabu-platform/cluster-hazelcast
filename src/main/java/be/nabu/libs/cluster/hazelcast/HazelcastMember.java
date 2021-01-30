@@ -29,4 +29,8 @@ public class HazelcastMember implements ClusterMember {
 		return member.getSocketAddress().getAddress();
 	}
 
+	Member getMember() {
+		return member;
+	}
+
 }

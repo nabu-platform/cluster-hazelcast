@@ -9,21 +9,30 @@ import be.nabu.libs.cluster.api.ClusterList;
 import be.nabu.libs.cluster.api.ClusterLock;
 import be.nabu.libs.cluster.api.ClusterMap;
 import be.nabu.libs.cluster.api.ClusterMember;
+import be.nabu.libs.cluster.api.ClusterMembershipListener;
+import be.nabu.libs.cluster.api.ClusterMembershipSubscription;
 import be.nabu.libs.cluster.api.ClusterSet;
 import be.nabu.libs.cluster.api.ClusterTopic;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.Member;
+import com.hazelcast.core.MemberAttributeEvent;
+import com.hazelcast.core.MembershipEvent;
+import com.hazelcast.core.MembershipListener;
 
 public class HazelcastClusterInstance implements ClusterInstance {
 
 	private HazelcastInstance instance;
+	private List<ClusterMember> members;
+	private List<ClusterMembershipListener> listeners = new ArrayList<ClusterMembershipListener>();
 
 	public HazelcastClusterInstance(HazelcastInstance instance) {
 		this.instance = instance;
+		members = initializeMembers();
 	}
 	
 	@Override
@@ -81,10 +90,74 @@ public class HazelcastClusterInstance implements ClusterInstance {
 
 	@Override
 	public List<ClusterMember> members() {
+		return new ArrayList<ClusterMember>(members);
+	}
+
+	private List<ClusterMember> initializeMembers() {
 		List<ClusterMember> members = new ArrayList<ClusterMember>();
 		for (Member member : instance.getCluster().getMembers()) {
 			members.add(new HazelcastMember(member));
 		}
+		instance.getCluster().addMembershipListener(new MembershipListener() {
+			@Override
+			public void memberRemoved(MembershipEvent arg0) {
+				Iterator<ClusterMember> iterator = members.iterator();
+				while (iterator.hasNext()) {
+					HazelcastMember member = (HazelcastMember) iterator.next();
+					if (member.getMember().equals(arg0.getMember())) {
+						if (!listeners.isEmpty()) {
+							synchronized(listeners) {
+								for (ClusterMembershipListener listener : listeners) {
+									try {
+										listener.memberRemoved(member);
+									}
+									catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+						iterator.remove();
+					}
+				}
+			}
+			@Override
+			public void memberAttributeChanged(MemberAttributeEvent arg0) {
+				// do nothing
+			}
+			@Override
+			public void memberAdded(MembershipEvent arg0) {
+				HazelcastMember hazelcastMember = new HazelcastMember(arg0.getMember());
+				if (!listeners.isEmpty()) {
+					synchronized(listeners) {
+						for (ClusterMembershipListener listener : listeners) {
+							try {
+								listener.memberAdded(hazelcastMember);
+							}
+							catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+				members.add(hazelcastMember);
+			}
+		});
 		return members;
+	}
+
+	@Override
+	public ClusterMembershipSubscription addMembershipListener(ClusterMembershipListener listener) {
+		synchronized(listeners) {
+			listeners.add(listener);
+		}
+		return new ClusterMembershipSubscription() {
+			@Override
+			public void unsubscribe() {
+				synchronized(listeners) {
+					listeners.remove(listener);
+				}
+			}
+		};
 	}
 }
