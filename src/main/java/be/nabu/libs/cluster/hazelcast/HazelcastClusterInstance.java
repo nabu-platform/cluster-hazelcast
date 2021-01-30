@@ -8,10 +8,15 @@ import be.nabu.libs.cluster.api.ClusterInstance;
 import be.nabu.libs.cluster.api.ClusterList;
 import be.nabu.libs.cluster.api.ClusterLock;
 import be.nabu.libs.cluster.api.ClusterMap;
+import be.nabu.libs.cluster.api.ClusterMember;
 import be.nabu.libs.cluster.api.ClusterSet;
 import be.nabu.libs.cluster.api.ClusterTopic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.Member;
 
 public class HazelcastClusterInstance implements ClusterInstance {
 
@@ -72,5 +77,14 @@ public class HazelcastClusterInstance implements ClusterInstance {
 	@Override
 	public <T> ClusterTopic<T> topic(String name) {
 		return new HazelcastTopic<T>(instance.getTopic(name));
+	}
+
+	@Override
+	public List<ClusterMember> members() {
+		List<ClusterMember> members = new ArrayList<ClusterMember>();
+		for (Member member : instance.getCluster().getMembers()) {
+			members.add(new HazelcastMember(member));
+		}
+		return members;
 	}
 }
