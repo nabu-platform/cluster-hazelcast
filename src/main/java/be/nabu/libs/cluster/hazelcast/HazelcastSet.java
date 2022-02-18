@@ -3,7 +3,9 @@ package be.nabu.libs.cluster.hazelcast;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.hazelcast.core.ISet;
+import com.hazelcast.collection.ISet;
+
+//import com.hazelcast.core.ISet;
 
 import be.nabu.libs.cluster.api.ClusterSet;
 

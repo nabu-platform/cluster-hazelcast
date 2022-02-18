@@ -2,7 +2,9 @@ package be.nabu.libs.cluster.hazelcast;
 
 import java.util.concurrent.TimeUnit;
 
-import com.hazelcast.core.ICountDownLatch;
+import com.hazelcast.cp.ICountDownLatch;
+
+//import com.hazelcast.core.ICountDownLatch;
 
 import be.nabu.libs.cluster.api.ClusterCountDownLatch;
 

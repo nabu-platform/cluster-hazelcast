@@ -2,15 +2,18 @@ package be.nabu.libs.cluster.hazelcast;
 
 import java.util.concurrent.TimeUnit;
 
-import com.hazelcast.core.ILock;
+import com.hazelcast.cp.lock.FencedLock;
+
+//import com.hazelcast.core.ILock;
 
 import be.nabu.libs.cluster.api.ClusterLock;
 
 public class HazelcastLock implements ClusterLock {
 
-	private ILock lock;
+//	private ILock lock;
+	private FencedLock lock;
 
-	public HazelcastLock(ILock lock) {
+	public HazelcastLock(FencedLock lock) {
 		this.lock = lock;
 	}
 
@@ -19,10 +22,10 @@ public class HazelcastLock implements ClusterLock {
 		lock.lock();
 	}
 
-	@Override
-	public void lock(long leaseTime, TimeUnit leaseTimeUnit) {
-		lock.lock(leaseTime, leaseTimeUnit);
-	}
+//	@Override
+//	public void lock(long leaseTime, TimeUnit leaseTimeUnit) {
+//		lock.lock(leaseTime, leaseTimeUnit);
+//	}
 
 	@Override
 	public void unlock() {
@@ -39,10 +42,10 @@ public class HazelcastLock implements ClusterLock {
 		return lock.tryLock(timeout, timeoutUnit);
 	}
 
-	@Override
-	public boolean tryLock(long timeout, TimeUnit timeoutUnit, long leaseTime, TimeUnit leaseTimeUnit) throws InterruptedException {
-		return lock.tryLock(timeout, timeoutUnit, leaseTime, leaseTimeUnit);
-	}
+//	@Override
+//	public boolean tryLock(long timeout, TimeUnit timeoutUnit, long leaseTime, TimeUnit leaseTimeUnit) throws InterruptedException {
+//		return lock.tryLock(timeout, timeoutUnit, leaseTime, leaseTimeUnit);
+//	}
 
 	@Override
 	public boolean isLocked() {

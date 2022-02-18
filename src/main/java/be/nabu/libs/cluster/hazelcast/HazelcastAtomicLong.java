@@ -1,6 +1,9 @@
 package be.nabu.libs.cluster.hazelcast;
 
-import com.hazelcast.core.IAtomicLong;
+// 4.2.4
+import com.hazelcast.cp.IAtomicLong;
+// 3.12
+//import com.hazelcast.core.IAtomicLong;
 
 import be.nabu.libs.cluster.api.ClusterAtomicLong;
 

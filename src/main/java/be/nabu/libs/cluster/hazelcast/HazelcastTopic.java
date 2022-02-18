@@ -1,8 +1,14 @@
 package be.nabu.libs.cluster.hazelcast;
 
-import com.hazelcast.core.ITopic;
-import com.hazelcast.core.Message;
-import com.hazelcast.core.MessageListener;
+import java.util.UUID;
+
+import com.hazelcast.topic.ITopic;
+import com.hazelcast.topic.Message;
+import com.hazelcast.topic.MessageListener;
+
+//import com.hazelcast.core.ITopic;
+//import com.hazelcast.core.Message;
+//import com.hazelcast.core.MessageListener;
 
 import be.nabu.libs.cluster.api.ClusterMessageListener;
 import be.nabu.libs.cluster.api.ClusterSubscription;
@@ -28,7 +34,7 @@ public class HazelcastTopic<T> implements ClusterTopic<T> {
 
 	@Override
 	public ClusterSubscription subscribe(final ClusterMessageListener<T> listener) {
-		final String subscription = topic.addMessageListener(new MessageListener<T>() {
+		final UUID subscription = topic.addMessageListener(new MessageListener<T>() {
 			@Override
 			public void onMessage(Message<T> message) {
 				listener.onMessage(message.getMessageObject());

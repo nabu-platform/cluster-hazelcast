@@ -2,7 +2,9 @@ package be.nabu.libs.cluster.hazelcast;
 
 import java.net.InetAddress;
 
-import com.hazelcast.core.Member;
+import com.hazelcast.cluster.Member;
+
+//import com.hazelcast.core.Member;
 
 import be.nabu.libs.cluster.api.ClusterMember;
 
@@ -16,12 +18,14 @@ public class HazelcastMember implements ClusterMember {
 
 	@Override
 	public String getName() {
-		return member.getStringAttribute("name");
+//		return member.getStringAttribute("name");
+		return member.getAttribute("name");
 	}
 
 	@Override
 	public String getGroup() {
-		return member.getStringAttribute("group");
+//		return member.getStringAttribute("group");
+		return member.getAttribute("group");
 	}
 
 	@Override

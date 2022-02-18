@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import com.hazelcast.core.IQueue;
+import com.hazelcast.collection.IQueue;
+
+//import com.hazelcast.core.IQueue;
 
 import be.nabu.libs.cluster.api.ClusterBlockingQueue;
 

@@ -18,11 +18,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.hazelcast.cluster.Member;
+import com.hazelcast.cluster.MembershipEvent;
+import com.hazelcast.cluster.MembershipListener;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.Member;
-import com.hazelcast.core.MemberAttributeEvent;
-import com.hazelcast.core.MembershipEvent;
-import com.hazelcast.core.MembershipListener;
+//import com.hazelcast.core.Member;
+//import com.hazelcast.core.MemberAttributeEvent;
+//import com.hazelcast.core.MembershipEvent;
+//import com.hazelcast.core.MembershipListener;
 
 public class HazelcastClusterInstance implements ClusterInstance {
 
@@ -37,7 +40,8 @@ public class HazelcastClusterInstance implements ClusterInstance {
 	
 	@Override
 	public ClusterLock lock(String name) {
-		return new HazelcastLock(instance.getLock(name));
+//		return new HazelcastLock(instance.getLock(name));
+		return new HazelcastLock(instance.getCPSubsystem().getLock(name));
 	}
 
 	public HazelcastInstance getHazelcastInstance() {
@@ -46,19 +50,20 @@ public class HazelcastClusterInstance implements ClusterInstance {
 
 	@Override
 	public ClusterAtomicLong atomicLong(String name) {
-		return new HazelcastAtomicLong(instance.getAtomicLong(name));
+		return new HazelcastAtomicLong(instance.getCPSubsystem().getAtomicLong(name));
 	}
 
 	@Override
 	public ClusterCountDownLatch countDownLatch(String name) {
-		return new HazelcastCountDownLatch(instance.getCountDownLatch(name));
+		return new HazelcastCountDownLatch(instance.getCPSubsystem().getCountDownLatch(name));
 	}
 
 	@Override
 	public ClusterIdGenerator idGenerator(String name) {
 		// should probably use the Reliable IdGenerator instead
 		// http://docs.hazelcast.org/docs/latest-development/manual/html/Distributed_Data_Structures/Reliable_IdGenerator.html
-		return new HazelcastIdGenerator(instance.getIdGenerator(name));
+//		return new HazelcastIdGenerator(instance.getIdGenerator(name));
+		return new HazelcastIdGenerator(instance.getFlakeIdGenerator(name));
 	}
 
 	@Override
@@ -121,10 +126,10 @@ public class HazelcastClusterInstance implements ClusterInstance {
 					}
 				}
 			}
-			@Override
-			public void memberAttributeChanged(MemberAttributeEvent arg0) {
-				// do nothing
-			}
+//			@Override
+//			public void memberAttributeChanged(MemberAttributeEvent arg0) {
+//				// do nothing
+//			}
 			@Override
 			public void memberAdded(MembershipEvent arg0) {
 				HazelcastMember hazelcastMember = new HazelcastMember(arg0.getMember());

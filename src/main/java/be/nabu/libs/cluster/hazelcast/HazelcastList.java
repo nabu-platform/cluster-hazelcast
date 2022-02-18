@@ -5,7 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.hazelcast.core.IList;
+import com.hazelcast.collection.IList;
+
+//import com.hazelcast.core.IList;
 
 import be.nabu.libs.cluster.api.ClusterList;
 

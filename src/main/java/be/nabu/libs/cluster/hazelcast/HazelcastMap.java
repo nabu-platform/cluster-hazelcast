@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import com.hazelcast.core.IMap;
+import com.hazelcast.map.IMap;
+
+//import com.hazelcast.core.IMap;
 
 import be.nabu.libs.cluster.api.ClusterMap;
 
