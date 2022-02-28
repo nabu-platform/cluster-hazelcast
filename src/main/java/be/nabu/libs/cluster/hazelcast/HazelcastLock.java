@@ -19,10 +19,10 @@ public class HazelcastLock implements ClusterLock {
 		lock.lock();
 	}
 
-	@Override
-	public void lock(long leaseTime, TimeUnit leaseTimeUnit) {
-		lock.lock(leaseTime, leaseTimeUnit);
-	}
+//	@Override
+//	public void lock(long leaseTime, TimeUnit leaseTimeUnit) {
+//		lock.lock(leaseTime, leaseTimeUnit);
+//	}
 
 	@Override
 	public void unlock() {
@@ -39,10 +39,10 @@ public class HazelcastLock implements ClusterLock {
 		return lock.tryLock(timeout, timeoutUnit);
 	}
 
-	@Override
-	public boolean tryLock(long timeout, TimeUnit timeoutUnit, long leaseTime, TimeUnit leaseTimeUnit) throws InterruptedException {
-		return lock.tryLock(timeout, timeoutUnit, leaseTime, leaseTimeUnit);
-	}
+//	@Override
+//	public boolean tryLock(long timeout, TimeUnit timeoutUnit, long leaseTime, TimeUnit leaseTimeUnit) throws InterruptedException {
+//		return lock.tryLock(timeout, timeoutUnit, leaseTime, leaseTimeUnit);
+//	}
 
 	@Override
 	public boolean isLocked() {
