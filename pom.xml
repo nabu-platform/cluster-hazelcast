@@ -1,18 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>be.nabu.libs.cluster</groupId>
 	<artifactId>cluster-hazelcast</artifactId>
 	<packaging>jar</packaging>
-	<version>${be.nabu.libs.cluster-cluster-hazelcast-version}</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>cluster-hazelcast</name>
-
 	<parent>
 		<groupId>be.nabu</groupId>
 		<artifactId>core</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -25,7 +22,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>be.nabu.libs.types</groupId>
@@ -39,12 +35,10 @@
 			<groupId>be.nabu.libs.cluster</groupId>
 			<artifactId>cluster-api</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast-all -->
 		<dependency>
-		    <groupId>com.hazelcast</groupId>
-		    <artifactId>hazelcast-all</artifactId>
-		    <version>3.10.2</version>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-all</artifactId>
+			<version>3.10.2</version>
 		</dependency>
-
 	</dependencies>
 </project>
